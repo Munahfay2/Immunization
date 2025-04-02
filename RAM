@@ -1,0 +1,77 @@
+The files to install your application into multiple directories
+have been successfully created.
+
+PACKAGE CONTENTS
+
+The created package includes install-time utilities and application files.
+
+1) Install-time utilities
+
+The utility "xbind" and auxiliary file "xbind.script" created in the directory
+
+	"C:\Users\Cliff\Desktop\Ram-native"
+
+2) Application files
+
+Let $(Root) be the "C:\Users\Cliff\Desktop\Ram-native\Root" directory.
+
+INSTALLATION PROCEDURE
+
+The third-party tool that you use to author setups, has to perform the following
+installation procedure on the target system.
+
+STEP 1. Define Placement and Copy Files
+
+First, the installer should
+
+  - define or prompt the user for full paths to $(Root) on the target system;
+  - copy the contents of $(Root) "as is" to the locations defined;
+  - copy the utility "xbind" and file "xbind.script" to a directory for temporary use.
+
+STEP 2. Create Placement Description File
+
+On this step, the installer has to create a plain ASCII or Unicode text file
+with the following contents:
+
+    Root=<full path to the installation directory of $(Root) defined on STEP 1>
+
+Let us call such a file "placement.txt" though you can choose any other name.
+
+For example, if you have arranged a package with two installation directories
+$(MyRoot1) and $(MyRoot2), the installer has to create a "placement.txt" file
+that contains two lines:
+
+	MyRoot1="E:\Program Files\My Application Dir"
+	MyRoot2="E:\Program Files\Common Files\Another Dir"
+
+STEP 3. Hard-wire Placement Settings
+
+On this step, the installer has to run the "xbind" utility by executing the command
+
+	xbind  xbind.script placement.txt [-unicode-redirection]
+
+which hard-wires the placement settings into the JET-compiled executables.
+
+Arguments:
+
+  "xbind.script" is the auxiliary file copied by the installer on STEP 1
+
+  "placement.txt" is the file created by the installer on STEP 2.
+
+  The option "-unicode-redirection" has to be specified if "placement.txt" is
+  created using Unicode character set.
+
+ 
+AUTOMATIC BUILD
+ 
+To build the package without invoking the JetPackII GUI wizard, use the following
+command:
+
+	xpack "C:\Users\Cliff\Desktop\Ram.jpn"
+
+The files will be created in the directory
+
+	"C:\Users\Cliff\Desktop\Ram-native".
+
+Advanced build options are described in the JET Users Guide,
+chapter "Deployment automation", section "Deployment utilities".
